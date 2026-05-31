@@ -1,0 +1,20 @@
+# render.yaml - Blueprint for Render.com auto-deployment
+# Is file ko repository ke root mein rakhein, Render automatically detect kar lega
+
+services:
+  - type: web
+    name: appx-v2-proxy
+    runtime: node
+    repo: https://github.com/yourusername/your-repo-name  # Apna repo URL daalein
+    plan: free  # ya 'starter' / 'professional'
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000  # Render apne aap set kar deta hai, but explicit rakh sakte hain
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    domains:
+      - appx-proxy.onrender.com  # Optional custom domain
